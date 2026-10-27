@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тест: Групповые эффекты и командная работа</title>
+<title>Тест: Групповая сплоченность и командная работа</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -13,14 +13,8 @@
     min-height: 100vh;
     padding: 30px 20px;
   }
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
+  .container { max-width: 800px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 40px; }
   header h1 {
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     background: linear-gradient(135deg, #a78bfa, #f472b6);
@@ -29,180 +23,81 @@
     background-clip: text;
     margin-bottom: 10px;
   }
-  header p {
-    color: #94a3b8;
-    font-size: 1.1rem;
-  }
-  .progress {
-    background: #1e293b;
-    border-radius: 20px;
-    height: 10px;
-    overflow: hidden;
-    margin-bottom: 30px;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #6366f1, #ec4899);
-    width: 0%;
-    transition: width 0.4s ease;
-    border-radius: 20px;
-  }
+  header p { color: #94a3b8; font-size: 1.1rem; }
+  .progress { background: #1e293b; border-radius: 20px; height: 10px; overflow: hidden; margin-bottom: 30px; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #8b5cf6, #ec4899); width: 0%; transition: width 0.4s ease; border-radius: 20px; }
+  
   .question-card {
-    background: linear-gradient(145deg, #1e293b, #0f172a);
-    border: 1px solid #334155;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 35px;
     margin-bottom: 25px;
     animation: slideIn 0.4s ease;
   }
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .question-num {
-    color: #a78bfa;
-    font-weight: 600;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-  }
-  .question-text {
-    font-size: 1.3rem;
-    margin-bottom: 25px;
-    color: #f1f5f9;
-    line-height: 1.5;
-  }
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .question-num { color: #a78bfa; font-weight: 600; margin-bottom: 10px; font-size: 0.95rem; }
+  .question-text { font-size: 1.3rem; margin-bottom: 25px; color: #f1f5f9; line-height: 1.5; }
+  
+  .options { display: flex; flex-direction: column; gap: 12px; }
   .option {
-    background: #0f172a;
-    border: 2px solid #334155;
-    padding: 16px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.25s;
-    font-size: 1.05rem;
-    color: #cbd5e1;
-    text-align: left;
+    background: #0f172a; border: 2px solid #334155; padding: 16px 20px; border-radius: 12px;
+    cursor: pointer; transition: all 0.25s; font-size: 1.05rem; color: #cbd5e1; text-align: left;
   }
-  .option:hover {
-    border-color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.1);
-    transform: translateX(5px);
-  }
-  .option.selected {
-    border-color: #8b5cf6;
-    background: rgba(139, 92, 246, 0.2);
-    color: white;
-  }
-  .option.correct {
-    border-color: #10b981;
-    background: rgba(16, 185, 129, 0.2);
-    color: #6ee7b7;
-  }
-  .option.wrong {
-    border-color: #ef4444;
-    background: rgba(239, 68, 68, 0.2);
-    color: #fca5a5;
-  }
+  .option:hover { border-color: #8b5cf6; background: rgba(139, 92, 246, 0.1); transform: translateX(5px); }
+  .option.selected { border-color: #8b5cf6; background: rgba(139, 92, 246, 0.2); color: white; }
+  .option.correct { border-color: #10b981; background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+  .option.wrong { border-color: #ef4444; background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
   .option.disabled { pointer-events: none; }
+  
   .explanation {
-    margin-top: 20px;
-    padding: 18px;
-    border-radius: 12px;
-    background: rgba(139, 92, 246, 0.1);
-    border-left: 4px solid #8b5cf6;
-    display: none;
-    color: #cbd5e1;
-    line-height: 1.6;
+    margin-top: 20px; padding: 18px; border-radius: 12px;
+    background: rgba(139, 92, 246, 0.1); border-left: 4px solid #8b5cf6;
+    display: none; color: #cbd5e1; line-height: 1.6;
   }
   .explanation.show { display: block; animation: slideIn 0.3s ease; }
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
+  
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; }
   .btn {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    color: white;
-    border: none;
-    padding: 14px 30px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border: none;
+    padding: 14px 30px; border-radius: 12px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
   }
-  .btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
-  }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4); }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-secondary {
-    background: #334155;
-  }
-
-  /* Результаты */
+  .btn-secondary { background: #334155; }
+  
   .result-card {
-    background: linear-gradient(145deg, #1e293b, #0f172a);
-    border: 2px solid #8b5cf6;
-    border-radius: 24px;
-    padding: 50px 35px;
-    text-align: center;
-    display: none;
-    animation: slideIn 0.5s ease;
+    background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(12px);
+    border: 2px solid #8b5cf6; border-radius: 24px; padding: 50px 35px;
+    text-align: center; display: none; animation: slideIn 0.5s ease;
   }
   .result-card.show { display: block; }
-  .result-icon {
-    font-size: 5rem;
-    margin-bottom: 20px;
-  }
+  .result-icon { font-size: 5rem; margin-bottom: 20px; }
   .result-score {
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 3rem; font-weight: 700;
     background: linear-gradient(135deg, #a78bfa, #f472b6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     margin-bottom: 15px;
   }
-  .result-title {
-    font-size: 1.8rem;
-    color: white;
-    margin-bottom: 15px;
-  }
-  .result-text {
-    color: #cbd5e1;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 30px;
-  }
-  .back-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: #a78bfa;
-    text-decoration: none;
-    font-weight: 600;
-  }
+  .result-title { font-size: 1.8rem; color: white; margin-bottom: 15px; }
+  .result-text { color: #cbd5e1; font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px; }
+  .back-link { display: inline-block; margin-top: 20px; color: #a78bfa; text-decoration: none; font-weight: 600; }
   .back-link:hover { color: #f472b6; }
 
-  @media (max-width: 600px) {
-    .question-card { padding: 25px 20px; }
-    .question-text { font-size: 1.1rem; }
-  }
+  @media (max-width: 600px) { .question-card { padding: 25px 20px; } .question-text { font-size: 1.1rem; } }
 </style>
 </head>
 <body>
 <div class="container">
   <header>
-    <h1>🧠 Тест: Групповые эффекты и командная работа</h1>
-    <p>10 вопросов · проверь свои знания</p>
+    <h1>🧠 Тест: Групповая сплоченность</h1>
+    <p>10 вопросов · проверь свои знания о командной работе</p>
   </header>
 
   <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-
   <div id="quizArea"></div>
 
   <div class="result-card" id="resultCard">
@@ -219,94 +114,64 @@
 <script>
 const questions = [
   {
-    q: "Что такое социальная фасилитация?",
-    options: [
-      "Снижение продуктивности в группе",
-      "Улучшение выполнения простых задач в присутствии других",
-      "Стремление к согласию в группе",
-      "Распределение ролей в команде"
-    ],
+    q: "Что такое групповая сплоченность?",
+    options: ["Желание начальника контролировать всех", "Стремление членов группы оставаться в ней и приверженность общим целям", "Отсутствие любых конфликтов в коллективе", "Одинаковый уровень зарплаты у всех"],
     correct: 1,
-    explanation: "Социальная фасилитация — эффект, при котором присутствие других людей улучшает выполнение хорошо освоенных и простых задач (открыто Н. Triplett в 1898 г.)."
+    explanation: "Сплоченность — это степень, в которой члены группы хотят оставаться в ней, поддерживают общие цели и испытывают взаимную симпатию."
   },
   {
-    q: "Эффект Рингельмана (социальная лень) проявляется в...",
-    options: [
-      "Росте продуктивности с увеличением группы",
-      "Снижении индивидуальных усилий в группе",
-      "Улучшении креативности",
-      "Усилении лидерских качеств"
-    ],
+    q: "Что такое социальная лень (эффект Рингельмана)?",
+    options: ["Рост продуктивности из-за конкуренции", "Снижение индивидуальных усилий человека при работе в группе", "Отказ группы выполнять поставленную задачу", "Усталость лидера команды"],
     correct: 1,
-    explanation: "Максимилиан Рингельман обнаружил: чем больше группа, тем меньше усилий прилагает каждый её участник. В группе из 8 людей индивидуальные усилия падали на 49%."
-  },
-  {
-    q: "Что такое групповая поляризация?",
-    options: [
-      "Распад группы на подгруппы",
-      "Склонность группы принимать более радикальные решения после обсуждения",
-      "Снижение конфликтности в группе",
-      "Увеличение числа участников"
-    ],
-    correct: 1,
-    explanation: "После обсуждения члены группы склоняются к более крайним позициям, чем до него — либо более рискованным, либо более осторожным."
-  },
-  {
-    q: "Группомыслие (groupthink) — это...",
-    options: [
-      "Коллективный интеллект группы",
-      "Стремление к консенсусу, подавляющее критическое мышление",
-      "Способ быстрого решения задач",
-      "Эффект синергии в команде"
-    ],
-    correct: 1,
-    explanation: "Термин ввёл Ирвинг Джанис. Группомыслие приводит к ошибочным решениям, так как желание сохранить гармонию подавляет реалистичную оценку альтернатив."
+    explanation: "Эффект Рингельмана показывает, что с увеличением размера группы индивидуальные усилия каждого участника снижаются, так как ответственность размывается."
   },
   {
     q: "Сколько командных ролей выделил Мередит Белбин?",
     options: ["5", "7", "9", "12"],
     correct: 2,
-    explanation: "Белбин выделил 9 ролей, сгруппированных в 3 категории: ролевые (мыслительные), социальные и научные. Идеальная команда включает все 9."
+    explanation: "Мередит Белбин выделил 9 ключевых ролей: Генератор идей, Исследователь ресурсов, Координатор, Душа команды, Исполнитель, Аналитик, Доводчик, Специалист и Мотиватор."
   },
   {
-    q: "Какая стадия НЕ входит в модель развития команды Такмана?",
-    options: ["Формирование", "Шторм", "Конкуренция", "Результат"],
+    q: "Какая стадия НЕ входит в модель развития команды Брюса Такмана?",
+    options: ["Формирование (Forming)", "Шторм (Storming)", "Конкуренция (Competing)", "Нормализация (Norming)"],
     correct: 2,
-    explanation: "Модель Такмана (1965, доработана в 1977): Forming → Storming → Norming → Performing → Adjourning. «Конкуренция» не является отдельной стадией."
+    explanation: "Модель Такмана включает 5 стадий: Формирование, Шторм, Нормализация, Результат (Performing) и Завершение (Adjourning). 'Конкуренция' не является отдельной стадией."
+  },
+  {
+    q: "Что такое группомыслие (groupthink)?",
+    options: ["Коллективный разум, превосходящий индивидуальный", "Стремление к консенсусу, подавляющее критическое мышление и реалистичную оценку", "Способ быстрого мозгового штурма", "Процесс распределения задач в команде"],
+    correct: 1,
+    explanation: "Термин введён Ирвингом Джанисом. Группомыслие возникает, когда желание сохранить гармонию и единство в группе подавляет реалистичную оценку альтернатив, ведя к ошибкам."
   },
   {
     q: "Что означает принцип синергии «1 + 1 = 3»?",
-    options: [
-      "Математическая ошибка",
-      "Совместный результат превышает сумму индивидуальных вкладов",
-      "В команде всегда нужен третий",
-      "Работа втроём эффективнее работы вдвоём"
-    ],
+    options: ["Математическая ошибка в отчётах", "Совместный результат превышает простую сумму индивидуальных вкладов", "В команде всегда должен быть третий лишний", "Работа втроём всегда эффективнее работы вдвоём"],
     correct: 1,
-    explanation: "Синергия — это эффект, при котором взаимодействие элементов даёт результат, больший простой суммы их вкладов. В команде это достигается за счёт взаимодополняемости."
+    explanation: "Синергия — это эффект, при котором взаимодействие элементов системы даёт результат, больший, чем простая арифметическая сумма их отдельных вкладов."
   },
   {
-    q: "На какой стадии Такмана чаще всего возникают конфликты за влияние?",
-    options: ["Формирование", "Шторм", "Нормализация", "Результат"],
+    q: "На какой стадии по Такману чаще всего возникают конфликты за влияние и роли?",
+    options: ["Формирование", "Шторм (Storming)", "Нормализация", "Результат"],
     correct: 1,
-    explanation: "Стадия «Шторм» (Storming) — самая сложная. Участники борются за роли, оспаривают лидерство и правила. Без её прохождения команда не перейдёт к эффективности."
+    explanation: "Стадия 'Шторм' — самая сложная. Участники борются за роли, оспаривают лидерство и правила. Без её прохождения команда не перейдёт к эффективности."
   },
   {
-    q: "Какой признак НЕ характерен для эффективной команды?",
-    options: [
-      "Чёткая общая цель",
-      "Открытая коммуникация",
-      "Полное отсутствие конфликтов",
-      "Распределение ролей"
-    ],
+    q: "Какой признак является 'красным флагом' (проблемой) для команды?",
+    options: ["Конструктивные споры по рабочим вопросам", "Полное отсутствие каких-либо конфликтов и споров", "Чёткое распределение зон ответственности", "Регулярные ретроспективы"],
+    correct: 1,
+    explanation: "Полное отсутствие конфликтов часто является признаком группомыслия или страха высказывать мнение, что губительно для развития команды."
+  },
+  {
+    q: "Что такое социальная фасилитация?",
+    options: ["Упрощение рабочих процессов", "Улучшение выполнения простых и освоенных задач в присутствии других людей", "Облегчение наказания за ошибки в группе", "Процесс адаптации нового сотрудника"],
+    correct: 1,
+    explanation: "Социальная фасилитация — это феномен, при котором присутствие других людей повышает уровень активации и улучшает выполнение хорошо знакомых задач."
+  },
+  {
+    q: "Какой инструмент НЕ способствует повышению групповой сплоченности?",
+    options: ["Прозрачная коммуникация и обратная связь", "Совместное празднование успехов", "Скрытое распределение задач и размытие ответственности", "Проведение ретроспектив"],
     correct: 2,
-    explanation: "Конфликты в команде — это нормально и даже полезно, если они конструктивные (по идеям, а не по личностям). Полное отсутствие конфликтов — признак группомыслия."
-  },
-  {
-    q: "Кто ввёл понятие «группомыслие» (groupthink)?",
-    options: ["Мередит Белбин", "Ирвинг Джанис", "Максимилиан Рингельман", "Брюс Такман"],
-    correct: 1,
-    explanation: "Ирвинг Джанис ввёл термин в 1972 году, анализируя провальные политические решения (например, высадку в Заливе Свиней)."
+    explanation: "Размытие ответственности ведёт к социальной лени и конфликтам, разрушая доверие и сплоченность. Остальные варианты являются проверенными инструментами укрепления команды."
   }
 ];
 
@@ -322,9 +187,7 @@ function renderQuestion() {
       <div class="question-num">Вопрос ${currentQ + 1} из ${questions.length}</div>
       <div class="question-text">${q.q}</div>
       <div class="options">
-        ${q.options.map((opt, i) => `
-          <button class="option" data-i="${i}">${opt}</button>
-        `).join('')}
+        ${q.options.map((opt, i) => `<button class="option" data-i="${i}">${opt}</button>`).join('')}
       </div>
       <div class="explanation" id="explanation">${q.explanation}</div>
     </div>
@@ -333,18 +196,13 @@ function renderQuestion() {
       <button class="btn" id="nextQ" disabled>Далее →</button>
     </div>
   `;
-
   document.getElementById('progressBar').style.width = ((currentQ) / questions.length * 100) + '%';
-
   document.querySelectorAll('.option').forEach(btn => {
     btn.addEventListener('click', () => selectAnswer(parseInt(btn.dataset.i)));
   });
-  document.getElementById('prevQ').addEventListener('click', () => {
-    if (currentQ > 0) { currentQ--; renderQuestion(); }
-  });
+  document.getElementById('prevQ').addEventListener('click', () => { if (currentQ > 0) { currentQ--; renderQuestion(); } });
   document.getElementById('nextQ').addEventListener('click', () => {
-    if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
-    else showResult();
+    if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); } else { showResult(); }
   });
 }
 
@@ -354,7 +212,6 @@ function selectAnswer(i) {
   if (answered[currentQ] !== undefined) return;
   answered[currentQ] = i;
   if (i === q.correct) score++;
-
   options.forEach((opt, idx) => {
     opt.classList.add('disabled');
     if (idx === q.correct) opt.classList.add('correct');
@@ -372,33 +229,21 @@ function showResult() {
   document.getElementById('resultScore').textContent = `${score} / ${questions.length}`;
   document.getElementById('progressBar').style.width = '100%';
 
-  let icon, title, text;
   const pct = score / questions.length;
-  if (pct === 1) {
-    icon = '🏆'; title = 'Превосходно!';
-    text = 'Ты отлично разбираешься в групповых эффектах и командной работе. Настоящий эксперт!';
-  } else if (pct >= 0.8) {
-    icon = '🌟'; title = 'Отличный результат!';
-    text = 'Ты хорошо понимаешь, как работает команда. Ещё немного — и станешь настоящим профи.';
-  } else if (pct >= 0.6) {
-    icon = '👍'; title = 'Хороший результат';
-    text = 'Базовые знания есть, но некоторые темы стоит повторить. Перечитай презентацию!';
-  } else if (pct >= 0.4) {
-    icon = '📚'; title = 'Есть над чем работать';
-    text = 'Рекомендуем вернуться к презентации и изучить материал внимательнее.';
-  } else {
-    icon = '💪'; title = 'Не сдавайся!';
-    text = 'Пока результат слабый, но это отличный повод изучить тему глубже. Всё впереди!';
-  }
+  let icon, title, text;
+  if (pct === 1) { icon = '🏆'; title = 'Превосходно!'; text = 'Ты настоящий эксперт в командной динамике и групповых эффектах!'; } 
+  else if (pct >= 0.8) { icon = '🌟'; title = 'Отличный результат!'; text = 'Ты отлично понимаешь, как работает эффективная команда.'; } 
+  else if (pct >= 0.6) { icon = '👍'; title = 'Хороший результат'; text = 'Базовые знания есть, но некоторые нюансы стоит повторить в презентации.'; } 
+  else if (pct >= 0.4) { icon = '📚'; title = 'Есть над чем работать'; text = 'Рекомендуем вернуться к слайдам и изучить материал внимательнее.'; } 
+  else { icon = '💪'; title = 'Не сдавайся!'; text = 'Это отличный повод изучить тему групповой сплоченности глубже. Всё впереди!'; }
+  
   document.getElementById('resultIcon').textContent = icon;
   document.getElementById('resultTitle').textContent = title;
   document.getElementById('resultText').textContent = text;
 }
 
 function restartQuiz() {
-  currentQ = 0;
-  score = 0;
-  answered = [];
+  currentQ = 0; score = 0; answered = [];
   document.getElementById('quizArea').style.display = 'block';
   document.querySelector('.progress').style.display = 'block';
   document.getElementById('resultCard').classList.remove('show');
